@@ -108,7 +108,7 @@ div > button {
   );
 }
 
-.hero nav {
+nav{
   background: #603bbb;
   width: 100%;
   padding: 20px 40px;
@@ -116,13 +116,6 @@ div > button {
   align-items: center;
   justify-content: space-between;
 }
-
-.hero nav h2 {
+nav h2{
   color: #fff;
-}
-
-.hero nav button {
-  width: 86px;
-  padding: 8px 0;
-  background: #3a2b58;
 }

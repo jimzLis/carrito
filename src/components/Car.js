@@ -1,11 +1,15 @@
 import React, { useState, useEffect} from 'react';
 import firebase  from '../firebase/firebaseConfig';
-import ReactDOM from "react-dom";
-import Paypal from './Paypal';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap';
+import ReactPayPal from './ReactPayPal';
 
 function Car({user}){
-    const [checkout,setCheckOut]=useState(false);
-    const [listCarrito, seltListCarrito] = new useState(null)
+    const [checkout, setCheckout] = React.useState(false);
+    const [listCarrito, seltListCarrito] = new useState(null);
+    const [modalDetalle,setmodalDetalle] = useState(false);
+
+    
     let total = 0;
 
     const peticionesGet = () => {
@@ -77,22 +81,7 @@ function Car({user}){
      if(listCarrito == null) return(
          <h1 className="text-center">Tu carrito esta vacio</h1>
      )
-     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
     return (
         <section className="py-4 container">
             <div className="row justify-content-center">
@@ -128,11 +117,32 @@ function Car({user}){
                     <h2>Precio total: ${total}</h2>
                 </div>
                 <div className="col-auto">
-                    <button className="btn btn-primary m-2">Pagar ahora</button>
-                    { checkout ? (<Paypal/>):
-                     <button onClick={()=>{setCheckOut(true)}}></button>
+                {(checkout === true) ? <div className="payment-div"></div> 
+                    :<div>
+                        <button  onClick={() => {setmodalDetalle(true)}} className="btn btn-success ms-2">Pagar</button>
+                        </div>
                     }
+                    <Modal isOpen={modalDetalle}>
+                    <ModalHeader>
+                        <h3>Detalle de venta <button  onClick={() => {setmodalDetalle(false)}} className="btn btn-success ms-2">X</button></h3>
+                        
+                    </ModalHeader>
+                    <ModalBody>
+                        <div>
+                            <label>Usuario:</label>
+                            {user.email}
+                        </div>
+                        <div>
+                        <label>Total a pagar: $</label>
+                            {total}
+                        </div>
+                    </ModalBody>
 
+                    <ModalFooter>
+                    <ReactPayPal/>
+                    </ModalFooter>
+
+                </Modal>
                 </div>
             </div>
         </section>

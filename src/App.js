@@ -88,10 +88,14 @@ function App() {
     <div className="App">
       {user ? (
           <div>
-            <div> <button onClick={handleLogout}>Cerrar sesión</button></div>
+            <nav className="navbar navbar-light">
+              <h2>Online Store</h2>
+                <button className="btn btn-success cerrar" onClick={handleLogout}>Cerrar sesión</button>
+            </nav>
             <Home user = {user}/>
             <Car user = {user}/>
           </div>
+
       ):(
         <Login email={email}
         setEmail={setEmail}
